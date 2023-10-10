@@ -9,10 +9,12 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
+    stage: "${opt:stage, 'dev'}",
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
+    role: "arn:aws:iam::282865065290:role/role_lambda_sqs_${self:provider.stage}",
   },
   // import the function via paths
   functions: { appointmentPE },
