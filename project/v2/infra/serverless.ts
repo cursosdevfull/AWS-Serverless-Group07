@@ -29,6 +29,7 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      // PE
       SQSPE: {
         Type: "AWS::SQS::Queue",
         Properties: {
@@ -53,6 +54,7 @@ const serverlessConfiguration: AWS = {
           Value: { "Fn::GetAtt": ["SQSPE", "Arn"] },
         },
       },
+      // CO
       SQSCO: {
         Type: "AWS::SQS::Queue",
         Properties: {
@@ -77,6 +79,7 @@ const serverlessConfiguration: AWS = {
           Value: { "Fn::GetAtt": ["SQSCO", "Arn"] },
         },
       },
+      // MX
       SQSMX: {
         Type: "AWS::SQS::Queue",
         Properties: {

@@ -1,0 +1,7 @@
+### Send message
+POST https://5nl9styod8.execute-api.us-east-1.amazonaws.com/dev/origen HTTP/1.1
+content-type: application/json
+
+{
+    "message": "Hello World 7!"
+}
