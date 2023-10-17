@@ -1,0 +1,9 @@
+POST https://jh2se7t009.execute-api.us-east-1.amazonaws.com/dev/origen HTTP/1.1
+content-type: application/json
+
+{
+    "country": "MX",
+    "state": "BCN",
+    "city": "TIJ",
+    "date": "2020-12-01"
+}
