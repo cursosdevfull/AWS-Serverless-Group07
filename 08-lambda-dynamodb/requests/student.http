@@ -1,0 +1,14 @@
+### create
+POST https://od0a0gwulg.execute-api.us-east-1.amazonaws.com/dev/create HTTP/1.1
+
+### get all
+POST https://od0a0gwulg.execute-api.us-east-1.amazonaws.com/dev/get-all HTTP/1.1
+
+### get one
+POST https://od0a0gwulg.execute-api.us-east-1.amazonaws.com/dev/get-one HTTP/1.1
+
+### get update
+POST https://od0a0gwulg.execute-api.us-east-1.amazonaws.com/dev/update HTTP/1.1
+
+### delete
+POST https://od0a0gwulg.execute-api.us-east-1.amazonaws.com/dev/delete HTTP/1.1
