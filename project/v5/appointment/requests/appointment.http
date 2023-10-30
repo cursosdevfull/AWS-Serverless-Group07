@@ -1,0 +1,13 @@
+curl -X POST https://ubvo4sq5ak.execute-api.us-east-1.amazonaws.com/dev/appointment
+-h 'Content-Type: application/json'
+-d '{
+    "id": "7c117242-64dd-4f30-998a-11551be8d7f2",
+    "name": "Sergio",
+    "age": 30,
+    "medicId": 1,
+    "centerId": 34,
+    "specialtyId": 1,
+    "subSpecialtyId": 23,
+    "dateAppointment": "2023-10-02T14:00:00.000Z",
+    "countryISO": "PE"
+}'
