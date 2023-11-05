@@ -1,0 +1,2 @@
+POST https://8td5qs9okb.execute-api.us-east-1.amazonaws.com/dev/client
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2VyZ2lvIiwiZW1haWwiOiJzZXJnaW9AY29ycmVvLmNvbSIsImlhdCI6MTY5OTE0NjM3OSwiZXhwIjoxNjk5MTQ2OTc5fQ.64f-t4KQfXN_JZW1Alh3-usipSHNFUic0BZtbTdqw3k

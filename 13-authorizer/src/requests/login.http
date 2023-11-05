@@ -1,0 +1,7 @@
+POST https://8td5qs9okb.execute-api.us-east-1.amazonaws.com/dev/login
+content-type: application/json
+
+{
+    "email": "sergio@correo.com",
+    "password": "12345"
+}
