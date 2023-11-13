@@ -54,7 +54,131 @@ const serverlessConfiguration: AWS = {
           ExplicitAuthFlows: [
             "ALLOW_USER_PASSWORD_AUTH",
             "ALLOW_REFRESH_TOKEN_AUTH",
+            "ALLOW_USER_SRP_AUTH",
           ],
+        },
+      },
+      CognitoIdentityPool: {
+        Type: "AWS::Cognito::IdentityPool",
+        Properties: {
+          IdentityPoolName: "curso07-cognito-identity-pool",
+          AllowUnauthenticatedIdentities: false,
+          CognitoIdentityProviders: [
+            {
+              ClientId: { Ref: "CognitoUserPoolClient" },
+              ProviderName: {
+                "Fn::GetAtt": ["CognitoUserPool", "ProviderName"],
+              },
+            },
+          ],
+        },
+      },
+
+      CognitoAuthRole: {
+        Type: "AWS::IAM::Role",
+        Properties: {
+          RoleName: "cognito-auth-role-new",
+          Path: "/",
+          AssumeRolePolicyDocument: {
+            Version: "2012-10-17",
+            Statement: [
+              {
+                Effect: "Allow",
+                Principal: { Federated: "cognito-identity.amazonaws.com" },
+                Action: "sts:AssumeRoleWithWebIdentity",
+                Condition: {
+                  StringEquals: {
+                    "cognito-identity.amazonaws.com:aud": {
+                      Ref: "CognitoIdentityPool",
+                    },
+                  },
+                  "ForAnyValue:StringLike": {
+                    "cognito-identity.amazonaws.com:amr": "authenticated",
+                  },
+                },
+              },
+            ],
+          },
+          Policies: [
+            {
+              PolicyName: "cognito-auth-policy-new",
+              PolicyDocument: {
+                Version: "2012-10-17",
+                Statement: [
+                  {
+                    Effect: "Allow",
+                    Action: [
+                      "mobileanalytics:PutEvents",
+                      "cognito-sync:*",
+                      "cognito-identity:*",
+                    ],
+                    Resource: "*",
+                  },
+                  {
+                    Effect: "Allow",
+                    Action: ["execute-api:Invoke"],
+                    Resource: "*",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      CognitoUnauthRole: {
+        Type: "AWS::IAM::Role",
+        Properties: {
+          RoleName: "cognito-unauth-role-new",
+          Path: "/",
+          AssumeRolePolicyDocument: {
+            Version: "2012-10-17",
+            Statement: [
+              {
+                Effect: "Allow",
+                Principal: { Federated: "cognito-identity.amazonaws.com" },
+                Action: "sts:AssumeRoleWithWebIdentity",
+                Condition: {
+                  StringEquals: {
+                    "cognito-identity.amazonaws.com:aud": {
+                      Ref: "CognitoIdentityPool",
+                    },
+                  },
+                  "ForAnyValue:StringLike": {
+                    "cognito-identity.amazonaws.com:amr": "unauthenticated",
+                  },
+                },
+              },
+            ],
+          },
+          Policies: [
+            {
+              PolicyName: "cognito-auth-policy-new",
+              PolicyDocument: {
+                Version: "2012-10-17",
+                Statement: [
+                  {
+                    Effect: "Deny",
+                    Action: [
+                      "mobileanalytics:PutEvents",
+                      "cognito-sync:*",
+                      "cognito-identity:*",
+                    ],
+                    Resource: "*",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      CognitoIdentityPoolRoleAttachment: {
+        Type: "AWS::Cognito::IdentityPoolRoleAttachment",
+        Properties: {
+          IdentityPoolId: { Ref: "CognitoIdentityPool" },
+          Roles: {
+            authenticated: { "Fn::GetAtt": ["CognitoAuthRole", "Arn"] },
+            unauthenticated: { "Fn::GetAtt": ["CognitoUnauthRole", "Arn"] },
+          },
         },
       },
     },

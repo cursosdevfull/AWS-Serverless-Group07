@@ -6,11 +6,7 @@ export default {
     {
       http: {
         method: "post",
-        path: "hello",
-        authorizer: "aws_iam",
-        cors: {
-          origin: "*",
-        },
+        path: "trigger",
       },
     },
   ],
